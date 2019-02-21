@@ -31,12 +31,14 @@ export class RestserviceComponent implements OnInit {
 
   }
 
+  // Il faut avoir le service Rest qui tourne en local
   chercherCompte(){
     this.http.get("http://localhost:8080/comptes/CC1")
       .subscribe(data=>{
         this.compte=data;
       })
   }
+
   ajoutCompte(){
       let body = JSON.stringify(this.compteAjoute);
       this.http.post('http://localhost:8080/comptes', body,this.options).subscribe();

@@ -24,7 +24,7 @@
       </div>
       <div class="row">
         <ul class="nav nav-pills">
-          <li [ngClass]="{'active':currentPage==(i+1)}" class="clickable nav-item" *ngFor="let page of pages; let i=index">
+          <li [ngClass]="{'active':currentPage==(i+1)}" class="clickable nav-item" style="padding-right: 5px" *ngFor="let page of pages; let i=index">
             <a (click)="goToPage(i)">{{i}}</a>
           </li>
         </ul>

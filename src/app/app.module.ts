@@ -4,18 +4,16 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { AboutComponent } from './about/about.component';
-import { ContactsComponent } from './contacts/contacts.component';
 import {FormsModule} from '@angular/forms';
 import {AboutService} from '../services/about.service';
 import {RouterModule, Routes} from '@angular/router';
-import { GalleryComponent } from './gallery/gallery.component';
+import {GalleryComponent } from './gallery/gallery.component';
 import {HttpModule} from '@angular/http';
 import { RestserviceComponent } from './restservice/restservice.component';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
 
 const appRootes:Routes =[
   {path:'about',component:AboutComponent},
-  {path:'contacts',component:ContactsComponent},
   {path:'gallery',component:GalleryComponent},
   {path:'banque',component:RestserviceComponent},
   {path:'',redirectTo:'/about',pathMatch:'full'}
@@ -24,7 +22,6 @@ const appRootes:Routes =[
   declarations: [
     AppComponent,
     AboutComponent,
-    ContactsComponent,
     GalleryComponent,
     RestserviceComponent
   ],

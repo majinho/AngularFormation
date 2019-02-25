@@ -1,5 +1,100 @@
-<p>
-  <button  type="submit" (click)="ajoutCompte()" class="btn btn-primary" >ajouter compte</button>
-  <button  type="submit" (click)="chercherCompte()" class="btn btn-primary" >chercher compte</button>
-  {{compte.solde}}
-</p>
+<div class="container">
+  <button  type="submit" (click)="boutonAjouterCompte()" class="btn btn-primary" >ajouter compte</button>
+  <button  type="submit" (click)="chercherComptes()" class="btn btn-primary" >chercher compte</button>
+</div>
+<div class="container marginTop5" *ngIf="typeBoutonSelectionne==2">
+
+  <div class="card-header">Comptes courants</div>
+    <div class="card-body">
+      <table class="table">
+        <thead>
+          <th>Code compte</th>
+          <th>Type Compte</th>
+          <th>Solde</th>
+          <th>Decouvert</th>
+          <th>Client</th>
+          <th>Employe</th>
+        </thead>
+        <tbody *ngFor="let compteCourant of comptesCourant">
+          <td>{{compteCourant.codeCompte}}</td>
+          <td>{{compteCourant.type}}</td>
+          <td>{{compteCourant.solde}}</td>
+          <td>{{compteCourant.decouvert}}</td>
+          <td>{{compteCourant.client.nomClient}}</td>
+          <td>{{compteCourant.employe.nomEmploye}}</td>
+        </tbody>
+      </table>
+    </div>
+
+
+  <div class="card-header">Comptes d'epargne</div>
+  <div class="card-body">
+    <table class="table">
+      <thead>
+      <th>Code compte</th>
+      <th>Type Compte</th>
+      <th>Solde</th>
+      <th>Taux</th>
+      <th>Client</th>
+      <th>Employe</th>
+      </thead>
+      <tbody *ngFor="let compteEpargne of comptesEpargne">
+      <td>{{compteEpargne.codeCompte}}</td>
+      <td>{{compteEpargne.type}}</td>
+      <td>{{compteEpargne.solde}}</td>
+      <td>{{compteEpargne.taux}}%</td>
+      <td>{{compteEpargne.client.nomClient}}</td>
+      <td>{{compteEpargne.employe.nomEmploye}}</td>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+<div class="container marginTop5" *ngIf="typeBoutonSelectionne==1">
+  <div class="card-header">Ajouter Compte</div>
+  <div class="card-body">
+    <form #compteForm="ngForm" (ngSubmit)="ajoutCompte(compteForm.value)">
+      <div class="form-group">
+        <div class="row paddingTop10">
+          <div class="col-4">
+            <span class="custom-control-label">Code compte</span>
+            <input required class="custom-control-label" [(ngModel)]="compteFormulaire.codeCompte" name="codeCompte">
+          </div>
+          <div class="col-4">
+                <span class="custom-control-label">Type compte</span>
+                <select (change)="onTypeChange($event)" [(ngModel)]="compteFormulaire.type" name="type">
+                  <option *ngFor="let typeCompte of typesCompte" [ngValue]="typeCompte.id" >
+                    {{ typeCompte.value }}
+                  </option>
+                </select>
+          </div>
+
+          <div class="col-4" *ngIf="compteFormulaire.type=='CC'">
+            <span class="custom-control-label">Decouvert</span>
+            <input required class="custom-control-label" [(ngModel)]="compteFormulaire.decouvert" name="decouvert">
+          </div>
+          <div class="col-4" *ngIf="compteFormulaire.type=='CE'">
+            <span class="custom-control-label">Taux</span>
+            <input required class="custom-control-label" [(ngModel)]="compteFormulaire.taux" name="taux">
+          </div>
+        </div>
+        <div class="row marginTop5">
+          <div class="col-4">
+            <span class="custom-control-label">Solde</span>
+            <input required class="custom-control-label" [(ngModel)]="compteFormulaire.solde" name="solde">
+          </div>
+          <div class="col-4">
+            <span class="custom-control-label">Employe</span>
+            <input required class="custom-control-label" [(ngModel)]="compteFormulaire.employe.codeEmploye" name="employe">
+          </div>
+          <div class="col-4">
+            <span class="custom-control-label">Client</span>
+            <input required class="custom-control-label" [(ngModel)]="compteFormulaire.client.codeClient" name="client">
+          </div>
+        </div>
+        <button [disabled]="!compteForm.valid" type="submit"  class="btn btn-primary marginTop5" >Ajouter Compte</button>
+      </div>
+    </form>
+  </div>
+</div>
